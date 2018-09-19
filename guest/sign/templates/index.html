@@ -1,17 +1,50 @@
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Django Page</title>
-    </head>
-    <body>
-        <h1 style="color: red">发布会管理(第9节听完)</h1>
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
-        <form method="post" action="/login_action/">
-            <input type="text" name="username" placeholder="username"><br>
-            <input type="password" name="password" placeholder="password"><br>
-            {{ index_error }}<br>
-            <button id="btn" type="submit">登录</button>
-            {% csrf_token %}
-        </form>
-    </body>
+    <title>Guest Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="//v3.bootcss.com/examples/signin/signin.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <form class="form-signin" method="post" action="/login_action/">
+        <h2 class="form-signin-heading">Guest System</h2>
+        <label for="inputUsername" class="sr-only">Username</label>
+          <input name="username" type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+          <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+          <p style="color:red">{{index_error}}</p> <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                  <button class="btn btn-lg btn-primary btn-block">第9节听练完、第十四节23分钟</button>
+
+      </form>
+
+    </div> <!-- /container -->
+
+  </body>
+
 </html>
+
+
+
+
+
+
+
+
+

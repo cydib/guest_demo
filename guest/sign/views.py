@@ -1,10 +1,17 @@
-# -*- coding: utf-8 -*-
-# è§†å›¾å±‚ï¼Œå¤„ç†è¯·æ±‚ï¼Œè·å–ä¿¡æ¯
-from django.shortcuts import render
+#!/usr/bin/env python
+# -*- coding: GBK -*-
+# @Date    : 2018-07-01 22:07:57
+# @Author  : Your Name (you@example.org)
+# @Link    : http://example.org
+# @Version : $Id$
+
+# ÊÓÍ¼²ã£¬´¦ÀíÇëÇó£¬»ñÈ¡ĞÅÏ¢
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from sign.models import Event, Guest
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -22,45 +29,76 @@ def login_action(request):
             return render(request, "index.html", {"index_error": error})
 
         user = auth.authenticate(username=page_username, password=page_password)
-        if user is not None:  # å¦‚æœç”¨æˆ·ä¸æ˜¯ç©º
-            auth.login(request, user)  # ç™»å½•
+        if user is not None:  # Èç¹ûÓÃ»§²»ÊÇ¿Õ
+            auth.login(request, user)  # µÇÂ¼
             response = HttpResponseRedirect("/event_manage/")
-            request.session["user"] = page_username  # å°†sessionä¿¡æ¯è®°å½•åˆ°æµè§ˆå™¨ä¸­
+            request.session["user"] = page_username  # ½«sessionĞÅÏ¢¼ÇÂ¼µ½ä¯ÀÀÆ÷ÖĞ
             return response
         else:
-            error = "username or password errorï¼"
+            error = "username or password error£¡"
             return render(request, "index.html", {"index_error": error})
 
     else:
         return render(request, "index.html")
 
-        # if page_username != "admin" and page_password != "123":
-        #     error = "username   or password error"
-        #     return render(request, "index.html", {"index_error": error})
-        # elif page_username == "admin" and page_password != "123":
-        #     error = "username or password error"
-        #     return render(request, "index.html", {"index_error": error})
-        # elif page_username != "admin" and page_password == "123":
-        #     error = "username or password error"
-        #     return render(request, "index.html", {"index_error": error})
-        # else:
-        #     #return render(request, "event_manage.html")
-        #     # return HttpResponseRedirect('/event_manage/')#é‡å®šå‘
-        #     # cookieä½¿ç”¨
-        #     # respone = HttpResponseRedirect("/event_manage/")
-        #     # respone.set_cookie("user", username, 3600)
-        #     # return respone
-        #
-        #     # sessionä½¿ç”¨
-        #     respone = HttpResponseRedirect("/event_manage/")
-        #     request.session["user"] = username # å°†sessionä¿¡æ¯è®°å½•åˆ°æµè§ˆå™¨ä¸­
-        #     return respone
-
 
 @login_required()
 def event_manage(request):
     events = Event.objects.all()
-    # username =request.COOKIES.get("user", "")# è¯»å–æµè§ˆå™¨cooie
-    username = request.session.get("user", "")  # è¯»å–æµè§ˆå™¨session
+    # username =request.COOKIES.get("user", "")# ¶ÁÈ¡ä¯ÀÀÆ÷cooie
+    username = request.session.get("user", "")  # ¶ÁÈ¡ä¯ÀÀÆ÷session
     return render(request, "event_manage.html", {"event_user": username,
                                                  "events_list": events})
+
+
+@login_required()
+def guest_manage(request):
+    username = request.session.get('user', '')
+    guests = Guest.objects.all()
+    paginator = Paginator(guests, 10)
+    page = request.GET.get('page')
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # Èç¹ûÒ³Êı²»ÊÇÕûĞÍ, È¡µÚÒ»Ò³.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # Èç¹ûÒ³Êı³¬³ö²éÑ¯·¶Î§£¬È¡×îºóÒ»Ò³
+        contacts = paginator.page(paginator.num_pages)
+    return render(request, "guest_manage.html", {"guest_user": username, "guests_list": contacts})
+
+
+@login_required()
+def search_name(request):
+    search_name = request.GET.get("name", '')
+    username = request.session.get("user", "")  # ¶ÁÈ¡ä¯ÀÀÆ÷session
+    events = Event.objects.filter(name__contains=search_name)
+    if len(events) == 0:
+        return render(request, "event_manage.html", {"event_list": username,
+                                                     "hint": "¸ù¾İÊäÈëµÄ `·¢²¼»áÃû³Æ` ²éÑ¯½á¹ûÎª¿Õ£¡"})
+    return render(request, "event_manage.html", {"event_list": username, "events_list": events})
+
+
+@login_required()
+def search_phone(request):
+    search_name = request.GET.get("phone", "")
+    username = request.session.get("user", "")
+    guests = Guest.objects.filter(phone__contains=search_name)
+    if len(guests) == 0:
+        return render(request, "guest_manage.html", {"guests_list": guests})
+    return render(request, "guest_manage.html", {"guest_user": username, "guests_list": guests})
+
+
+@login_required()
+def sign_index(request, event_id):
+    username = request.session.get("user", "")
+    print("event_id:", event_id)
+    event = get_object_or_404(Event, id=event_id)
+    return render(request, "sign_index.html", {"event": event, "user": username})
+
+
+@login_required()
+def logout(request):
+    auth.logout(request)
+    respones = HttpResponseRedirect("/index/")
+    return respones
