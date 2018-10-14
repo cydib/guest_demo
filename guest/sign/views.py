@@ -92,7 +92,6 @@ def search_phone(request):
 @login_required()
 def sign_index(request, event_id):
     username = request.session.get("user", "")
-    print("event_id:", event_id)
     event = get_object_or_404(Event, id=event_id)
     return render(request, "sign_index.html", {"event": event, "user": username})
 
@@ -102,3 +101,23 @@ def logout(request):
     auth.logout(request)
     respones = HttpResponseRedirect("/index/")
     return respones
+
+
+@login_required
+def sign_index_action(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    phone = request.POST.get('phone', '')  # 获取表单中输入的手机号
+    result = Guest.objects.filter(phone=phone)
+    if not result:
+        return render(request, "sign_index.html", {'event': event, 'hint': 'Phone number does not exist'})
+
+    result = Guest.objects.filter(phone=phone, event_id=event_id)
+    if not result:
+        return render(request, "sign_index.html", {'event': event, 'hint': 'event id or phone error'})
+
+    result = Guest.objects.get(phone=phone, event_id=event_id)
+    if result.sign:
+        return render(request, "sign_index.html", {'event': event, 'hint': 'user already sign in'})
+    else:
+        Guest.objects.filter(phone=phone, event_id=event_id).update(sign=1)
+        return render(request, "sign_index.html", {'event': event, 'hint': 'Sign in success', 'guest': result})

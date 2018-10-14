@@ -17,7 +17,7 @@ Including another URLconf
 # 项目地址路由
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from sign import views
 
 urlpatterns = [
@@ -32,6 +32,8 @@ urlpatterns = [
     path('guest_manage/', views.guest_manage),
     path('search_name/', views.search_name),
     path('search_phone/', views.search_phone),
-    path('sign_index/<int:event_id>/', views.sign_index),#实在找不到原因
-    path('logout/', views.logout)
+    path('sign_index/<int:event_id>/', views.sign_index),
+    path('logout/', views.logout),
+    path('sign_index_action/<int:event_id>/', views.sign_index_action),
+    path('api/', include('sign.urls'))
 ]
