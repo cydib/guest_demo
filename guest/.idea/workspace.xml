@@ -20,16 +20,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sign/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="16" column="48" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="48" />
+            <state relative-caret-position="399">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views_api.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views_api.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sign/views_api.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="424">
@@ -116,11 +116,11 @@
       <list>
         <option value="$PROJECT_DIR$/sign/templates/sign_index.html" />
         <option value="$PROJECT_DIR$/sign/views.py" />
-        <option value="$PROJECT_DIR$/sign/templates/base.html" />
         <option value="$PROJECT_DIR$/sign/views_if.py" />
         <option value="$PROJECT_DIR$/guest/urls.py" />
         <option value="$PROJECT_DIR$/sign/urls.py" />
         <option value="$PROJECT_DIR$/sign/views_api.py" />
+        <option value="$PROJECT_DIR$/sign/templates/base.html" />
       </list>
     </option>
   </component>
@@ -282,27 +282,8 @@
         <state relative-caret-position="-412" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sign/templates/sign_index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="671">
-          <caret line="46" column="77" lean-forward="true" selection-start-line="46" selection-start-column="77" selection-end-line="46" selection-end-column="77" />
-          <folding>
-            <element signature="e#845#869#0#HTML" expanded="true" />
-            <element signature="e#1077#1096#0#HTML" expanded="true" />
-            <element signature="e#1222#1241#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sign/views_if.py">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sign/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="48" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="48" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/guest/urls.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -331,6 +312,25 @@
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sign/templates/sign_index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="671">
+          <caret line="46" column="77" lean-forward="true" selection-start-line="46" selection-start-column="77" selection-end-line="46" selection-end-column="77" />
+          <folding>
+            <element signature="e#845#869#0#HTML" expanded="true" />
+            <element signature="e#1077#1096#0#HTML" expanded="true" />
+            <element signature="e#1222#1241#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sign/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
     </entry>
